@@ -1,0 +1,151 @@
+Switch#show ru
+Switch#show running-config
+Building configuration...
+
+Current configuration  3223 bytes
+!
+! Last configuration change at 000529 UTC Sat Feb 4 2017
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3983218688
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3983218688
+ revocation-check none
+ rsakeypair TP-self-signed-3983218688
+!
+!
+crypto pki certificate chain TP-self-signed-3983218688
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33393833 32313836 3838301E 170D3030 30313034 30313236
+  34355A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 39383332
+  31383638 3830819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  810097DE FAE35ED7 BA3EB7E1 95DAE674 A05D391E A3FD3B09 1A17B418 ED44579F
+  9AB3A788 A06040A8 A3D8451E 0152BC72 21EC857D BE37524E D94FB076 E9D8BEB8
+  863A0A8A 6F1F301C 2E2396E1 F3E9BFF1 6F7CB957 DC82BA15 8761F411 718E9171
+  76037063 60FFE3AB A28DBF14 58D2053E 09664A02 0EF93C29 17AA215E 18FEBBEB
+  28E70203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
+  551D2304 18301680 14AEF623 8598F33F E5655F26 BAE9C411 383DFA07 02301D06
+  03551D0E 04160414 AEF62385 98F33FE5 655F26BA E9C41138 3DFA0702 300D0609
+  2A864886 F70D0101 05050003 81810037 34F1808E 07222CAC 418B377A 8679B5AA
+  CC094626 D1B5C92A 4DCD293C 91C8EA78 0190BA57 7CCF6619 FF0E662F 900DBEC7
+  E51C18E3 1601B4A9 F4073C96 9A447780 092246FB 907740BA 5C909F9C 88A53119
+  DF51E120 CDE0C77A 6D75D4EF 67DBB1E4 7039AEC4 FE2B3C3C 7B5A1CCB AC46067A
+  CE249B0E BBE59C16 2AE0452A 2886D0
+        quit
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet01
+ switchport mode trunk
+!
+interface GigabitEthernet02
+!
+interface GigabitEthernet03
+ switchport access vlan 2
+ switchport mode access
+!
+interface GigabitEthernet04
+!
+interface GigabitEthernet05
+ switchport access vlan 2
+ switchport mode trunk
+ spanning-tree vlan 1 port-priority 16
+!
+interface GigabitEthernet06
+ switchport access vlan 2
+ switchport mode trunk
+ spanning-tree vlan 1 port-priority 16
+!
+interface GigabitEthernet07
+!
+interface GigabitEthernet08
+ switchport mode trunk
+ spanning-tree vlan 2,16 port-priority 16
+!
+interface GigabitEthernet09
+!
+interface GigabitEthernet010
+ switchport access vlan 2
+!
+interface GigabitEthernet011
+!
+interface GigabitEthernet012
+!
+interface Vlan1
+ ip address 192.168.0.10 255.255.255.0
+!
+interface Vlan2
+ ip address 192.168.1.1 255.255.255.0
+!
+ip forward-protocol nd
+ip http server
+ip http secure-server
+!
+!
+!
+!
+no vstack
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line vty 0 4
+ password 123456
+ login
+line vty 5 15
+ login
+!
+!
+monitor session 1 source interface Gi01 , Gi03 - 4 , Gi06 - 7 , Gi010
+monitor session 1 destination interface Gi011
+!
+end
+
+Switch#

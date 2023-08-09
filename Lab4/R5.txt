@@ -1,0 +1,112 @@
+
+ip tcp synwait-time 5
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 192.168.35.1 255.255.255.0
+ ip nat outside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+interface Serial0/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface FastEthernet0/1
+ ip address 192.168.50.1 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+interface Serial0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/2
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/3
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet3/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet4/0
+!
+interface FastEthernet4/1
+!
+interface FastEthernet4/2
+!
+interface FastEthernet4/3
+!
+interface FastEthernet4/4
+!
+interface FastEthernet4/5
+!
+interface FastEthernet4/6
+!
+interface FastEthernet4/7
+!
+interface FastEthernet4/8
+!
+interface FastEthernet4/9
+!
+interface FastEthernet4/10
+!
+interface FastEthernet4/11
+!
+interface FastEthernet4/12
+!
+interface FastEthernet4/13
+!
+interface FastEthernet4/14
+!
+interface FastEthernet4/15
+!
+interface Vlan1
+ no ip address
+!
+!
+ip forward-protocol nd
+ip route 10.0.0.0 255.255.0.0 192.168.35.2
+ip route 10.1.0.0 255.255.0.0 192.168.35.2
+ip route 172.16.0.0 255.255.255.0 192.168.35.2
+ip route 172.16.1.0 255.255.255.0 192.168.35.2
+!
+!
+no ip http server
+no ip http secure-server
+ip nat inside source list 1 interface FastEthernet0/0 overload
+!
+access-list 1 permit 192.168.0.0 0.0.0.255
+access-list 1 permit 192.168.50.0 0.0.0.255
+no cdp log mismatch duplex
+!
+!
+!
